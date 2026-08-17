@@ -1,5 +1,10 @@
 export default async function handler(req, res) {
-    // Only allow POST requests
+    // Allow a simple GET request so visiting the link in a browser shows a status message
+    if (req.method === 'GET') {
+        return res.status(200).json({ status: "Vercel Webhook Proxy is online and running!" });
+    }
+
+    // Only allow POST requests for the actual webhook action
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
